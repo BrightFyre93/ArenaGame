@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArenaGame
 {
-    class Program
+    class ArenaGame
     {
         readonly static Random random_number_generator = new Random();
         readonly static int[] snake = new int[] { 50, 10 }; //First index is Health, Second is Attack
@@ -94,7 +94,7 @@ namespace ArenaGame
             while (true)
             {
                 Console.WriteLine("Pick a Monster: ");
-                 Console.WriteLine("No. - Name     - Health - Attack");
+                Console.WriteLine("No. - Name     - Health - Attack");
                 Console.WriteLine($"1   - Snake    - {snake[0]}     - {snake[1]}");
                 Console.WriteLine($"2   - Dragon   - {dragon[0]}     - {dragon[1]}");
                 Console.WriteLine($"3   - Scorpion - {scorpion[0]}     - {scorpion[1]}");
