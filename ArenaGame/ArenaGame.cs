@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArenaGame
 {
     class ArenaGame
     {
         readonly static Random random_number_generator = new Random();
-        readonly static int[] hero_level_requirements = new int[] { 100, 150, 250, 400, 600, 850, 1150 };
         readonly static int[] snake = new int[] { 50, 10, 20}; //First index is Health, Second is Attack
         readonly static int[] dragon = new int[] { 80, 8, 30}; //First index is Health, Second is Attack
         readonly static int[] scorpion = new int[] { 40, 20, 25}; //First index is Health, Second is Attack
@@ -18,7 +13,7 @@ namespace ArenaGame
         {
             int exp_hero = 0;
             int level_hero = 1;
-            int level_monster = 1;
+            int level_monster;
             while (true)
             {
                 Console.WriteLine("Would you like to start a new game? Input Y/Yes or N/No");
@@ -26,15 +21,15 @@ namespace ArenaGame
                 if (input_start == "Yes" || input_start == "Y")
                 {
                     int[] hero = SetHero(level_hero);
-                    Console.WriteLine("Pick Level for Monster from 1 - 3:");
-                    for (; ; )
+                    Console.WriteLine("Pick Level for Monster from 1 - 100:");
+                    for (;;)
                     { 
                         try
                         {
                             level_monster = Convert.ToInt32(Console.ReadLine());
-                            if (level_monster < 1 || level_monster > 3)
+                            if (level_monster < 1 || level_monster > 100)
                             {
-                                Console.WriteLine("Please input a number from 1 - 3.");
+                                Console.WriteLine("Please input a number from 1 - 100.");
                             }
                             else
                             {
@@ -43,7 +38,7 @@ namespace ArenaGame
                         }
                         catch (FormatException)
                         {
-                            Console.WriteLine("Please enter a number between 1 - 3.");
+                            Console.WriteLine("Please enter a number between 1 - 100.");
                         }
                     }
                     
@@ -106,9 +101,10 @@ namespace ArenaGame
                 {
                     Console.WriteLine("Please enter a valid input.");
                 }
-                if(hero_level_requirements[level_hero-1]<exp_hero)
+                int level_requirements = level_hero / 2 * ( 2 * 100 + (level_hero - 1) * 50); // Calculation of Sum of Arithmetic Progression with first term = 100 EXP and increase in EXP = 50 EXP
+                if(level_requirements < exp_hero)
                 {
-                    exp_hero -= hero_level_requirements[level_hero - 1];
+                    exp_hero -= level_requirements;
                     level_hero += 1;
                 }
             }
@@ -121,7 +117,7 @@ namespace ArenaGame
 
         static int[] PickMonster(int level)
         {
-            int[] monster = new int[] { 0, 0, 0 }; //First index is Health, Second is Attack
+            int[] monster = new int[] { 0, 0, 0 }; //First index is Health, Second is Attack, Third is EXP
             while (true)
             {
                 Console.WriteLine("Pick a Monster: ");
