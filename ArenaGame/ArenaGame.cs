@@ -9,7 +9,7 @@ namespace ArenaGame
     class ArenaGame
     {
         readonly static Random random_number_generator = new Random();
-        readonly static int[] hero_level_requirements = new int[] { 100, 150, 250, 400, 600, 850 };
+        readonly static int[] hero_level_requirements = new int[] { 100, 150, 250, 400, 600, 850, 1150 };
         readonly static int[] snake = new int[] { 50, 10, 20}; //First index is Health, Second is Attack
         readonly static int[] dragon = new int[] { 80, 8, 30}; //First index is Health, Second is Attack
         readonly static int[] scorpion = new int[] { 40, 20, 25}; //First index is Health, Second is Attack
@@ -105,6 +105,11 @@ namespace ArenaGame
                 else
                 {
                     Console.WriteLine("Please enter a valid input.");
+                }
+                if(hero_level_requirements[level_hero-1]<exp_hero)
+                {
+                    exp_hero -= hero_level_requirements[level_hero - 1];
+                    level_hero += 1;
                 }
             }
         }
