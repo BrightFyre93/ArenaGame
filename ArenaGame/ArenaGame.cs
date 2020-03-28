@@ -9,20 +9,45 @@ namespace ArenaGame
     class ArenaGame
     {
         readonly static Random random_number_generator = new Random();
-        readonly static int[] snake = new int[] { 50, 10 }; //First index is Health, Second is Attack
-        readonly static int[] dragon = new int[] { 80, 8 }; //First index is Health, Second is Attack
-        readonly static int[] scorpion = new int[] { 40, 20 }; //First index is Health, Second is Attack
+        readonly static int[] hero_level_requirements = new int[] { 100, 150, 250, 400, 600, 850 };
+        readonly static int[] snake = new int[] { 50, 10, 20}; //First index is Health, Second is Attack
+        readonly static int[] dragon = new int[] { 80, 8, 30}; //First index is Health, Second is Attack
+        readonly static int[] scorpion = new int[] { 40, 20, 25}; //First index is Health, Second is Attack
 
         static void Main()
         {
+            int exp_hero = 0;
+            int level_hero = 1;
+            int level_monster = 1;
             while (true)
             {
                 Console.WriteLine("Would you like to start a new game? Input Y/Yes or N/No");
                 string input_start = Console.ReadLine();
                 if (input_start == "Yes" || input_start == "Y")
                 {
-                    int[] hero = ResetGame();
-                    int[] monster = PickMonster();
+                    int[] hero = SetHero(level_hero);
+                    Console.WriteLine("Pick Level for Monster from 1 - 3:");
+                    for (; ; )
+                    { 
+                        try
+                        {
+                            level_monster = Convert.ToInt32(Console.ReadLine());
+                            if (level_monster < 1 || level_monster > 3)
+                            {
+                                Console.WriteLine("Please input a number from 1 - 3.");
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Please enter a number between 1 - 3.");
+                        }
+                    }
+                    
+                    int[] monster = PickMonster(level_monster);
                     int[] damages; //Array to save the damage being done to hero and monster
                     while (hero[0] > 0)
                     {
@@ -64,6 +89,7 @@ namespace ArenaGame
                         if(monster[0]<=0)
                         {
                             Console.WriteLine("Congrats you've won!");
+                            exp_hero += monster[2];
                             Console.ReadKey();
                             break;
                         }
@@ -82,46 +108,49 @@ namespace ArenaGame
                 }
             }
         }
-        static int[] ResetGame()
+        static int[] SetHero(int level)
          {
-            int[] hero = new int[] { 100, 10 }; //First index is Health, Second is Attack
+            int[] hero = new int[] { 100 * level, 10 * level }; //First index is Health, Second is Attack
             return hero;
          }
 
-        static int[] PickMonster()
+        static int[] PickMonster(int level)
         {
-            int[] monster = new int[] { 0, 0 }; //First index is Health, Second is Attack
+            int[] monster = new int[] { 0, 0, 0 }; //First index is Health, Second is Attack
             while (true)
             {
                 Console.WriteLine("Pick a Monster: ");
-                Console.WriteLine("No. - Name     - Health - Attack");
-                Console.WriteLine($"1   - Snake    - {snake[0]}     - {snake[1]}");
-                Console.WriteLine($"2   - Dragon   - {dragon[0]}     - {dragon[1]}");
-                Console.WriteLine($"3   - Scorpion - {scorpion[0]}     - {scorpion[1]}");
+                Console.WriteLine($"No. - Name     - Health - Attack - Monster EXP  - For Level {level}");
+                Console.WriteLine($"1   - Snake    - {snake[0]*level}     - {snake[1] * level} - {snake[2] * level}");
+                Console.WriteLine($"2   - Dragon   - {dragon[0] * level}     - {dragon[1] * level} - {dragon[2] * level}");
+                Console.WriteLine($"3   - Scorpion - {scorpion[0] * level}     - {scorpion[1] * level} - {scorpion[2] * level}");
                 Console.WriteLine("Enter a number between 1 - 3:");
                 try
                 {
                     int selected_monster = Convert.ToInt32(Console.ReadLine());
                     if (selected_monster < 1 || selected_monster > 3)
                     {
-                        Console.WriteLine("Please input a number from 1-3.");
+                        Console.WriteLine("Please input a number from 1 - 3.");
                     }
                     else if(selected_monster == 1) //Snake
                     {
-                        monster[0] = snake[0];
-                        monster[1] = snake[1];
+                        monster[0] = snake[0] * level;
+                        monster[1] = snake[1] * level;
+                        monster[2] = snake[2] * level;
                         break;
                     }
                     else if (selected_monster == 2) //Dragon
                     {
-                        monster[0] = dragon[0];
-                        monster[1] = dragon[1];
+                        monster[0] = dragon[0] * level;
+                        monster[1] = dragon[1] * level;
+                        monster[2] = dragon[2] * level;
                         break;
                     }
                     else if (selected_monster == 3) //Scorpion
                     {
-                        monster[0] = scorpion[0];
-                        monster[1] = scorpion[1];
+                        monster[0] = scorpion[0] * level;
+                        monster[1] = scorpion[1] * level;
+                        monster[2] = scorpion[2] * level;
                         break;
                     }
                 }
