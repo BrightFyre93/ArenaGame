@@ -5,9 +5,9 @@ namespace ArenaGame
     class ArenaGame
     {
         readonly static Random random_number_generator = new Random();
-        readonly static int[] snake = new int[] { 40, 60, 8, 12, 15, 25}; //First index is Health, Second is Attack
-        readonly static int[] dragon = new int[] { 70, 90, 6, 10, 25,35}; //First index is Health, Second is Attack
-        readonly static int[] scorpion = new int[] { 30,50, 15,25, 20, 30}; //First index is Health, Second is Attack
+        readonly static int[] snake = new int[] { 40, 60, 8, 12, 15, 25}; //First index is Lower Bound Health, Second Index is Upper Bound Health, Third index is Lower Bound Attack, Fourth Index is Upper Bound Attack, Fifth index is Lower Bound EXP, Sixth Index is Upper Bound EXP
+        readonly static int[] dragon = new int[] { 70, 90, 6, 10, 25, 35}; 
+        readonly static int[] scorpion = new int[] { 30, 50, 15, 25, 20, 30};
 
         static void Main()
         {
