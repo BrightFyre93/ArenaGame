@@ -5,9 +5,9 @@ namespace ArenaGame
     class ArenaGame
     {
         readonly static Random random_number_generator = new Random();
-        readonly static int[] snake = new int[] { 50, 10, 20}; //First index is Health, Second is Attack
-        readonly static int[] dragon = new int[] { 80, 8, 30}; //First index is Health, Second is Attack
-        readonly static int[] scorpion = new int[] { 40, 20, 25}; //First index is Health, Second is Attack
+        readonly static int[] snake = new int[] { 40, 60, 8, 12, 15, 25}; //First index is Health, Second is Attack
+        readonly static int[] dragon = new int[] { 70, 90, 6, 10, 25,35}; //First index is Health, Second is Attack
+        readonly static int[] scorpion = new int[] { 30,50, 15,25, 20, 30}; //First index is Health, Second is Attack
 
         static void Main()
         {
@@ -135,23 +135,23 @@ namespace ArenaGame
                     }
                     else if(selected_monster == 1) //Snake
                     {
-                        monster[0] = snake[0] * level;
-                        monster[1] = snake[1] * level;
-                        monster[2] = snake[2] * level;
+                        monster[0] = random_number_generator.Next(snake[0], snake[1]) * level;
+                        monster[1] = random_number_generator.Next(snake[2], snake[3]) * level;
+                        monster[2] = random_number_generator.Next(snake[4], snake[5]) * level;
                         break;
                     }
                     else if (selected_monster == 2) //Dragon
                     {
-                        monster[0] = dragon[0] * level;
-                        monster[1] = dragon[1] * level;
-                        monster[2] = dragon[2] * level;
+                        monster[0] = random_number_generator.Next(dragon[0], dragon[1]) * level;
+                        monster[1] = random_number_generator.Next(dragon[2], dragon[3]) * level;
+                        monster[2] = random_number_generator.Next(dragon[4], dragon[5]) * level;
                         break;
                     }
                     else if (selected_monster == 3) //Scorpion
                     {
-                        monster[0] = scorpion[0] * level;
-                        monster[1] = scorpion[1] * level;
-                        monster[2] = scorpion[2] * level;
+                        monster[0] = random_number_generator.Next(scorpion[0], scorpion[1]) * level;
+                        monster[1] = random_number_generator.Next(scorpion[2], scorpion[3]) * level;
+                        monster[2] = random_number_generator.Next(scorpion[4], scorpion[5]) * level;
                         break;
                     }
                 }
